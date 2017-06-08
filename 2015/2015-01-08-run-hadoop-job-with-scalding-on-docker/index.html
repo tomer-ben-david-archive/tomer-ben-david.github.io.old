@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Hadoop job with scalding on docker | Tomer Ben David on Software Development</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="" />
+    
+    <meta name="description" content="Explaining how to run docker with hadoop and then run a sample scalding hadoop job on it. you must compile your code with: 1-Xmax-classfile-name 200 otherwise you will get this error docker only suppo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop job with scalding on docker">
+<meta property="og:url" content="http://tomer-ben-david.github.io/2015/2015-01-08-run-hadoop-job-with-scalding-on-docker/index.html">
+<meta property="og:site_name" content="Tomer Ben David on Software Development">
+<meta property="og:description" content="Explaining how to run docker with hadoop and then run a sample scalding hadoop job on it. you must compile your code with: 1-Xmax-classfile-name 200 otherwise you will get this error docker only suppo">
+<meta property="og:updated_time" content="2016-12-18T17:27:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop job with scalding on docker">
+<meta name="twitter:description" content="Explaining how to run docker with hadoop and then run a sample scalding hadoop job on it. you must compile your code with: 1-Xmax-classfile-name 200 otherwise you will get this error docker only suppo">
+    
+
+    
+        <link rel="alternate" href="/" title="Tomer Ben David on Software Development" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Inici</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-R/">cheatsheet,R</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-akka-reactive-dev/">cheatsheet,akka,reactive,dev</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-containers-devops/">cheatsheet,containers,devops</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-design-patterns-dev/">cheatsheet,design-patterns,dev</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-go-golang/">cheatsheet,go,golang</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-hadoop-bigdata/">cheatsheet,hadoop,bigdata</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-java/">cheatsheet,java</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-javascript/">cheatsheet,javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-kafka-reactive-dev/">cheatsheet,kafka,reactive,dev</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-kubernetes-devops/">cheatsheet,kubernetes,devops</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-linux-bash-centos/">cheatsheet,linux,bash,centos</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-networking/">cheatsheet,networking</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-nodejs/">cheatsheet,nodejs</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-puppet-devops/">cheatsheet,puppet,devops</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-python/">cheatsheet,python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-ruby/">cheatsheet,ruby</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-sql/">cheatsheet,sql</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/cheatsheet-storm-reactive-dev/">cheatsheet,storm,reactive,dev</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/dev-datascience-scala-functional-programming/">dev,datascience,scala,functional-programming</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/devops/">devops</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/devops-git/">devops,git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/functional-programming-domain-driven-design-data-science/">functional-programming,domain-driven-design,data-science</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/leisure-popular-science/">leisure,popular-science</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/machine-learning-algorithms/">machine-learning,algorithms</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/machine-learning-scala-functional-programming-scalding/">machine-learning,scala,functional-programming,scalding</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/machine-learning-scala-functional-programming-scalding-bigdata/">machine-learning,scala,functional-programming,scalding,bigdata</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/performance-tuning/">performance,tuning</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/philosophy/">philosophy</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/programming/">programming</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/programming-web-UI/">programming, web, UI</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/programming-web-UI-philosophy-mobile/">programming, web, UI, philosophy, mobile</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/scala-devops/">scala, devops</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/scala-functional-programming/">scala, functional-programming</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/scala-functional-programming/">scala,functional-programming</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/scala-functional-programming-domain-driven-design/">scala,functional-programming,domain-driven-design</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/scala-functional-programming-hadoop/">scala,functional-programming,hadoop</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/scala-functional-programming-scalding/">scala,functional-programming,scalding</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/scala-functional-programming-scalding-hadoop/">scala,functional-programming,scalding,hadoop</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/startup-entrepreneurship/">startup,entrepreneurship</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">Quant a</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cercar" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'categories',
+            TAGS: 'etiquetes',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/scala-functional-programming-hadoop/">scala,functional-programming,hadoop</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-2015/2015-01-08-run-hadoop-job-with-scalding-on-docker" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Hadoop job with scalding on docker
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2015/2015-01-08-run-hadoop-job-with-scalding-on-docker/" class="article-date">
+            <time datetime="2015-01-08T20:18:00.000Z" itemprop="datePublished">2015-01-08</time>
+        </a>
+    </div>
+
+                
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>Explaining how to run docker with hadoop and then run a sample scalding hadoop job on it.</p>
+<p>you must compile your code with:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-<span class="type">Xmax</span>-classfile-name <span class="number">200</span></div></pre></td></tr></table></figure>
+<p>otherwise you will get this error <a href="http://stackoverflow.com/questions/23094365/scala-filename-too-long" target="_blank" rel="external">docker only supports up to 242 byte long file names</a>:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">bash<span class="number">-4.1</span># bin/hadoop jar /home/myjob.jar com.twitter.scalding.<span class="type">Tool</span> com.myjob.<span class="type">SimpleScaldingJob</span> --local --input input.txt --output output.txt</div><div class="line"><span class="type">Exception</span> in thread <span class="string">"main"</span> java.io.<span class="type">FileNotFoundException</span>: /tmp/hadoop-unjar3786039967272100280/com/twitter/bijection/<span class="type">GeneratedTupleCollectionInjections</span>$$anon$<span class="number">31</span>$$anonfun$invert$<span class="number">10</span>$$anonfun$apply$<span class="number">46</span>$$anonfun$apply$<span class="number">47</span>$$anonfun$apply$<span class="number">48</span>$$anonfun$apply$<span class="number">49</span>$$anonfun$apply$<span class="number">50</span>$$anonfun$apply$<span class="number">51</span>$$anonfun$apply$<span class="number">52</span>$$anonfun$apply$<span class="number">53</span>$$anonfun$apply$<span class="number">54</span>$$anonfun$apply$<span class="number">55.</span><span class="class"><span class="keyword">class</span> (<span class="params"><span class="type">File</span> name too long</span>)</span></div><div class="line">	at java.io.<span class="type">FileOutputStream</span>.open(<span class="type">Native</span> <span class="type">Method</span>)</div><div class="line">	at java.io.<span class="type">FileOutputStream</span>.&lt;init&gt;(<span class="type">FileOutputStream</span>.java:<span class="number">221</span>)</div><div class="line">	at java.io.<span class="type">FileOutputStream</span>.&lt;init&gt;(<span class="type">FileOutputStream</span>.java:<span class="number">171</span>)</div><div class="line">	at org.apache.hadoop.util.<span class="type">RunJar</span>.unJar(<span class="type">RunJar</span>.java:<span class="number">105</span>)</div><div class="line">	at org.apache.hadoop.util.<span class="type">RunJar</span>.unJar(<span class="type">RunJar</span>.java:<span class="number">81</span>)</div><div class="line">	at org.apache.hadoop.util.<span class="type">RunJar</span>.run(<span class="type">RunJar</span>.java:<span class="number">209</span>)</div><div class="line">	at org.apache.hadoop.util.<span class="type">RunJar</span>.main(<span class="type">RunJar</span>.java:<span class="number">136</span>)</div></pre></td></tr></table></figure>
+<p>so to add the above <code>scala compiler parameters</code> your <code>maven-scala-plugin</code> plugin should look as following:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.scala-tools<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-scala-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.15.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>scala-compile-first<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>process-resources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>add-source<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">args</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">arg</span>&gt;</span>-make:transitive<span class="tag">&lt;/<span class="name">arg</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">arg</span>&gt;</span>-dependencyfile<span class="tag">&lt;/<span class="name">arg</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">arg</span>&gt;</span>$&#123;project.build.directory&#125;/.scala_dependencies<span class="tag">&lt;/<span class="name">arg</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">arg</span>&gt;</span>-Xmax-classfile-name<span class="tag">&lt;/<span class="name">arg</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">arg</span>&gt;</span>200<span class="tag">&lt;/<span class="name">arg</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">args</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>scala-test-compile<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>process-test-resources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>testCompile<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>add to your maven build plugin to pack all jars (jar with dependencies):</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">archive</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">manifest</span>&gt;</span></div><div class="line">                        <span class="comment">&lt;!-- using main class in the MANIFEST was removed to enable user to choose what main to run</span></div><div class="line">                             to support running the tester with hooks main</div><div class="line">                        &lt;addClasspath&gt;true&lt;/addClasspath&gt;</div><div class="line">                        &lt;mainClass&gt;$&#123;main&#125;&lt;/mainClass&gt;</div><div class="line">                        --&gt;</div><div class="line">                    <span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>jar-with-libs<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>single<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>my-hadoop-job<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">appendAssemblyId</span>&gt;</span>false<span class="tag">&lt;/<span class="name">appendAssemblyId</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">attach</span>&gt;</span>false<span class="tag">&lt;/<span class="name">attach</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">descriptor</span>&gt;</span>src/main/assembly/assembly-jar-with-libs.xml<span class="tag">&lt;/<span class="name">descriptor</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;execution&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;id&gt;assembly-zip&lt;/id&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;goals&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;goal&gt;single&lt;/goal&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;/goals&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;phase&gt;package&lt;/phase&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;configuration&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;finalName&gt;pt-data-scripts-$&#123;project.version&#125;&lt;/finalName&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;attach&gt;false&lt;/attach&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;appendAssemblyId&gt;false&lt;/appendAssemblyId&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;descriptor&gt;src/main/assembly/assembly-descriptor.xml&lt;/descriptor&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;/configuration&gt;--&gt;</span></div><div class="line">                <span class="comment">&lt;!--&lt;/execution&gt;--&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>add the <code>assembly-descriptor.xml</code> file:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">assembly</span></span></div><div class="line">        <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"</span></div><div class="line">        <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="line">        <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>job<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">formats</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">format</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">format</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">formats</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">includeBaseDirectory</span>&gt;</span>false<span class="tag">&lt;/<span class="name">includeBaseDirectory</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencySets</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependencySet</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">unpack</span>&gt;</span>true<span class="tag">&lt;/<span class="name">unpack</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>/<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">unpackOptions</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">excludes</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>**/NOTICE*<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>**/LICENSE*<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>**/DEPENDENCIES*<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>META-INF/**<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></div><div class="line">                    <span class="comment">&lt;!-- Exclude folders - this removes "skipping" messages --&gt;</span></div><div class="line">                    <span class="comment">&lt;!--&lt;exclude&gt;%regex[.*/]&lt;/exclude&gt;--&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">unpackOptions</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">excludes</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>$&#123;artifact.groupId&#125;:$&#123;artifact.artifactId&#125;<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependencySet</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencySets</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">fileSets</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">fileSet</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span>$&#123;basedir&#125;/target/classes<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>/<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">excludes</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>*.jar<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">fileSet</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">fileSets</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>run docker:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -i -t sequenceiq/hadoop-docker:2.6.0 /etc/bootstrap.sh -bash</div></pre></td></tr></table></figure>
+<p>copy your jar with dependencies into docker (from your parent host):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cp myjob.jar /var/lib/docker/aufs/mnt/6cee084649a49fcb5d1943faec26b2f6e615a5322521684fb480bff0e1394c32/home/</div></pre></td></tr></table></figure>
+<p>finally run the hadoop job:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/hadoop jar /home/myjob.jar com.twitter.scalding.Tool com.myjob.SimpleScaldingJob --<span class="built_in">local</span> --input input.txt --output output.txt</div></pre></td></tr></table></figure>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://tomer-ben-david.github.io/2015/2015-01-08-run-hadoop-job-with-scalding-on-docker/" data-id="cj3ol13i90005bq90sfpv2qs9" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>seguir:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/" target="_blank">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="/" target="_blank">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2015/2015-02-17-simple-scalding-example/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">més nou</strong>
+        <p class="article-nav-title">
+        
+            Simple scalding example
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2015/2015-01-04-my-scalacheck-scalatest-flow/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">antic</strong>
+        <p class="article-nav-title">My scalatest scalacheck flow</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/cheatsheet-akka-reactive-dev/">cheatsheet,akka,reactive,dev</a></p>
+                            <p class="item-title"><a href="/2017/2017-06-08-page-cheatsheet-akka/" class="title">Akka CheatSheet</a></p>
+                            <p class="item-date"><time datetime="2017-06-08T19:18:00.000Z" itemprop="datePublished">2017-06-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/2017-06-04-page-math-cheatsheet/" class="title">Math CheatSheet</a></p>
+                            <p class="item-date"><time datetime="2017-06-08T15:36:00.000Z" itemprop="datePublished">2017-06-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/2017-05-30-scalability-cheatsheet/" class="title">Scalability And Performance CheatSheet</a></p>
+                            <p class="item-date"><time datetime="2017-06-08T15:35:24.000Z" itemprop="datePublished">2017-06-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/2017-06-08-page-top-podcasts/" class="title">Podcasts CheatSheet</a></p>
+                            <p class="item-date"><time datetime="2017-06-08T15:33:57.000Z" itemprop="datePublished">2017-06-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/hello-world/" class="title">Hello World</a></p>
+                            <p class="item-date"><time datetime="2017-06-08T15:01:13.000Z" itemprop="datePublished">2017-06-08</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-R/">cheatsheet,R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-akka-reactive-dev/">cheatsheet,akka,reactive,dev</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-containers-devops/">cheatsheet,containers,devops</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-design-patterns-dev/">cheatsheet,design-patterns,dev</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-go-golang/">cheatsheet,go,golang</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-hadoop-bigdata/">cheatsheet,hadoop,bigdata</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-java/">cheatsheet,java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-javascript/">cheatsheet,javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-kafka-reactive-dev/">cheatsheet,kafka,reactive,dev</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-kubernetes-devops/">cheatsheet,kubernetes,devops</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-linux-bash-centos/">cheatsheet,linux,bash,centos</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-networking/">cheatsheet,networking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-nodejs/">cheatsheet,nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-puppet-devops/">cheatsheet,puppet,devops</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-python/">cheatsheet,python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-ruby/">cheatsheet,ruby</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-sql/">cheatsheet,sql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cheatsheet-storm-reactive-dev/">cheatsheet,storm,reactive,dev</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dev-datascience-scala-functional-programming/">dev,datascience,scala,functional-programming</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/devops/">devops</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/devops-git/">devops,git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/functional-programming-domain-driven-design-data-science/">functional-programming,domain-driven-design,data-science</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/leisure-popular-science/">leisure,popular-science</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-learning-algorithms/">machine-learning,algorithms</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-learning-scala-functional-programming-scalding/">machine-learning,scala,functional-programming,scalding</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-learning-scala-functional-programming-scalding-bigdata/">machine-learning,scala,functional-programming,scalding,bigdata</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/performance-tuning/">performance,tuning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/philosophy/">philosophy</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming/">programming</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming-web-UI/">programming, web, UI</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming-web-UI-philosophy-mobile/">programming, web, UI, philosophy, mobile</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala-devops/">scala, devops</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala-functional-programming/">scala, functional-programming</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala-functional-programming/">scala,functional-programming</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala-functional-programming-domain-driven-design/">scala,functional-programming,domain-driven-design</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala-functional-programming-hadoop/">scala,functional-programming,hadoop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala-functional-programming-scalding/">scala,functional-programming,scalding</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala-functional-programming-scalding-hadoop/">scala,functional-programming,scalding,hadoop</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/startup-entrepreneurship/">startup,entrepreneurship</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">arxius</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2017 Tomer Ben David</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://tomer-ben-david.github.io/2015/2015-01-08-run-hadoop-job-with-scalding-on-docker/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
