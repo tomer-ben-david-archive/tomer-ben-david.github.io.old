@@ -1,9 +1,5 @@
 ---
-layout: post
-title:  "Startup Stack - tutorials, videos, books"
-date:   2017-05-20 22:18:00
-categories: startup,entrepreneurship
-comments: true
+title: Startup Stack - tutorials, videos, books
 ---
 
 ## Startuping and bootstraping
@@ -37,6 +33,10 @@ comments: true
 ## Documentation
 
 1. [XWiki](http://xwiki.org)
+
+## Recruitment
+
+1. [qualified.io](https://www.qualified.io/)
 
 ## Build
 1. [Polygot Maven](https://github.com/takari/polyglot-maven)
