@@ -144,22 +144,24 @@
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/cheatsheet-R/">cheatsheet,R</a>
+            <a class="article-category-link" href="/categories/cheatsheet-kubernetes-devops/">cheatsheet,kubernetes,devops</a>
             </div>
             <div class="date"><time datetime="2017-01-09T20:18:00.000Z" itemprop="datePublished">2017-01-09</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2016/2017-01-09-page-devtips-R/">R cheasheet</a>
+        <a href="/2016/2017-01-09-page-devtips-kubernetes/">Kubernetes cheasheet</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Read log file and print line chart
-12df = read.table("~/tmp/heapmem.log", header = FALSE)matplot(df$V4, type="l")
-in column 4 we have the heapmem it will produce the linechart.
-Getting help and exampl
+            Check Cluster Status
+1kubectl cluster-info
+Run an RC
+kubectl create -f redis-master-controller.yaml
+Check if running
+12345kubectl get rckubectl get podsdocker ps | grep rediskubectl get serviceskubect
         </p>
     </div>
 </article>
@@ -168,6 +170,38 @@ Getting help and exampl
     
     
     
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/cheatsheet-javascript/">cheatsheet,javascript</a>
+            </div>
+            <div class="date"><time datetime="2017-01-01T20:18:00.000Z" itemprop="datePublished">2017-01-01</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2016/2017-01-01-page-devtips-javascript/">JavaScript cheasheet</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Add replaceAll function to existing String object
+1234String.prototype.replaceAll = function(search, replacement) &#123;    var target = this;    return target.replace(new RegExp(search, 'g'), replace
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -190,38 +224,6 @@ Getting help and exampl
 Step 1 enable remote debug on a running nodejs process
 1kill -SIGUSR1 $NODEJS_PID
 Now your nodejs process (V8) is listening on po
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/cheatsheet-javascript/">cheatsheet,javascript</a>
-            </div>
-            <div class="date"><time datetime="2017-01-01T20:18:00.000Z" itemprop="datePublished">2017-01-01</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2016/2017-01-01-page-devtips-javascript/">JavaScript cheasheet</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Add replaceAll function to existing String object
-1234String.prototype.replaceAll = function(search, replacement) &#123;    var target = this;    return target.replace(new RegExp(search, 'g'), replace
         </p>
     </div>
 </article>
@@ -273,7 +275,7 @@ Now your nodejs process (V8) is listening on po
             
                 
                 <li>
-                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank">
+                    <a class="social-tooltip" title="github" href="https://github.com/tomer-ben-david/tomer-ben-david.github.io" target="_blank">
                         <i class="icon fa fa-github"></i>
                     </a>
                 </li>
