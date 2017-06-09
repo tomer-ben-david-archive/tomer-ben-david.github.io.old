@@ -1,8 +1,10 @@
 ---
 title: Podcasts CheatSheet
 ---
-## Podcast platforms
+## Podcast tools and platforms
 
+1. [Audio To Youtube tovid](http://tovid.io/)
+1. [Cloud convert](https://cloudconvert.com)
 1. [https://megaphone.fm/](https://megaphone.fm/) - supports dynamic advertisements
 
 Good podcasts
