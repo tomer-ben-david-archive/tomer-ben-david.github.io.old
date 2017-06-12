@@ -71,6 +71,4 @@ deploy:
   type: git
   repo: https://github.com/tomer-ben-david/tomer-ben-david.github.io.git
   branch: master
-  extend_dirs: [source,scaffolds,themes]
-
-
+  extend_dirs: [source,scaffolds,themes,root]
