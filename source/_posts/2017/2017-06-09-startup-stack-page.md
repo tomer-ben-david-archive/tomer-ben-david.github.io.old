@@ -2,6 +2,13 @@
 title: Startup Stack - tutorials, videos, books
 ---
 
+
+| first | lkjlkjlkj | second  | third        | fourth       |
+|-------|-----------|---------|--------------|--------------|
+|       |           | jjjkjkj |              | lkjlkjlkjklj |
+|       | lkjklj    |         | lkjlkjlkjlkj |              |
+|       |           |         |              |              |
+
 ## Startuping and bootstraping
 
 1. [levels.io bootstraping](https://levels.io/bootstrapping/)
@@ -56,6 +63,10 @@ title: Startup Stack - tutorials, videos, books
 1. [apache zeppelin](https://zeppelin.apache.org/)
 1. [chartio.com](https://chartio.com/)
 1. [similar to redash](http://alternativeto.net/software/redash/)
+
+## General stacks
+
+1. [https://stackshare.io](https://stackshare.io)
 
 # Notes
 

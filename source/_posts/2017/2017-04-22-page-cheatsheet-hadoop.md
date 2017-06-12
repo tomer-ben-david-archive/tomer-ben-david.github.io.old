@@ -38,9 +38,13 @@ ApplicationMaster # => Each application has `ApplicationMaster` process which ne
  ## Map Reduce ##
  ################
  
- Map(k1, v1) --> list(k2, v2) # => map takes keyvalue pair and produces zero or more intermediate keyvalue pairs
+ Map(k1, v1) --> list(k2, v2) # => extract something you care about from each record. # map takes keyvalue pair and produces zero or more intermediate keyvalue pairs # then outside of map shuffle  (distribute to reduce) and sort.
  
- Recduce(k2, list(v2)) --> list(k3, v3) # => Reduce take a single key and list of values and produces zero or more keyvalue, usually aggregation.
+ shuffle # => combined everything by same keys 
+ 
+ Recduce(k2, list(v2)) --> list(k3, v3) # => aggregate, summarize, filter, or transform.  # Reduce take a single key and list of values and produces zero or more keyvalue, usually aggregation.
+ 
+ input --> map --> shuffle --> reduce --> output
 ```
 
 ## Summary
