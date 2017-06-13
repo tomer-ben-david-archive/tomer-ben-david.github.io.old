@@ -1,6 +1,16 @@
 ---
 title: Scalability And Performance CheatSheet
 ---
+**CAP theorem**
+* **Consistency**: property of distributed database when I read I always get the **last** value stored.
+* **Availability**: when I ask I get an answer when I write it write when I read it reads.
+* **Partition Tolerance**: **tolerance** - Some nodes cant talk to other nodes. **tolerance** means when the brain is sealedback together its able to see the picture.
+* We can get only 2/3.
+* when we are in middle of partition, if we want consistency we will not return an answer.  that is a `CP` system.
+* `P` is not negotiable - it will happen, so we only need to choose from Consistency to Availability.
+* We we are one box we can have all 3 CAP.
+* When the world is a single master write database you did not need to deal with `CAP`.
+
 * **Simplify** Simplify your code and design
 * **X Axis Duplicate Data** Create multiple read only db's for your data and thus scale your reads.
 * **Y Axis Split on business** Split your data like microservices, different roles, different db's.
