@@ -1,5 +1,6 @@
 ---
 title: Scalability And Performance CheatSheet
+categories: scalability
 ---
 **CAP theorem**
 * **Consistency**: property of distributed database when I read I always get the **last** value stored.

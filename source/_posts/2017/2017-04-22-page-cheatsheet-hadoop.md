@@ -2,7 +2,7 @@
 layout: post
 title:  "Hadoop CheaSheet"
 date:   2017-04-22 22:18:00
-categories: cheatsheet,hadoop,bigdata
+categories: scalability
 comments: true
 ---
 ## Introduction

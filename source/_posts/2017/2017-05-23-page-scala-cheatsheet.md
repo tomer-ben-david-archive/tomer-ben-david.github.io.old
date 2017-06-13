@@ -2,7 +2,7 @@
 layout: post
 title:  "Scala CheatSheet"
 date:   2015-05-22 22:18:00
-categories: scala,functional-programming,scalding
+categories: scala
 comments: true
 ---
 1. Consider replacing tuple with 3+ items with case classes (will improve performance as well).

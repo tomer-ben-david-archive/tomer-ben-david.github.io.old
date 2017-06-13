@@ -2,7 +2,7 @@
 layout: post
 title:  "Design Patterns CheatSheet"
 date:   2017-04-22 22:18:00
-categories: cheatsheet,design-patterns,dev
+categories: programming
 comments: true
 ---
 ## Brief Summary of design patterns

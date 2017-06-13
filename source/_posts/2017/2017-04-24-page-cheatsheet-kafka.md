@@ -2,7 +2,7 @@
 layout: post
 title:  "Kafka CheatSheet"
 date:   2017-04-22 22:18:00
-categories: cheatsheet,kafka,reactive,dev
+categories: scalability
 comments: true
 ---
 ## Introduction
