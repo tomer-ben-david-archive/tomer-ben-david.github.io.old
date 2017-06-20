@@ -65,6 +65,10 @@ title: Startup Stack - tutorials, videos, books
 
 1. [https://stackshare.io](https://stackshare.io)
 
+# misc
+
+1. [copyfish extract text from ocr pdf images video https://news.ycombinator.com/item?id=14593906](https://news.ycombinator.com/item?id=14593906)
+
 # Notes
 
 Ionic 2017 Developer Survey
