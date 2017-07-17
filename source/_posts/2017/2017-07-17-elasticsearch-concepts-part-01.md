@@ -1,9 +1,9 @@
 ---
-title: ElasticSearch Concepts Part 01
+title: Is ElasticSearch Set/Get Eventual Consistent?
 ---
 **Introduction**
 
-Elasticsearch does much of the heavy lifting on handling horizontal scalability for us, managing failures, nodes, shards.  
+ElasticSearch does much of the heavy lifting on handling horizontal scalability for us, managing failures, nodes, shards.  Now I was just getting into it a few days ago in a new project I was working at.  I wanted to know if the SET/GET operation is eventually consistent or not.  I started by thinking, well it's a nosql, there are replicas, it should be eventually consistent but then I read some documentation which leads me to think it might be consistent and not eventual consitent, now if you know otherwise by the below findings, don't hestiate please let me know :) . But first, allow me to summarize for you some of the concepts I have learned and then I will say what I think about SET/GET eventual consistency.  (I also did a local cluster test to confirm that.)
 
 **cluster.name**
 
@@ -59,10 +59,34 @@ quorum # => By default primary shards requires a quorum (shards majority) to be 
 read miss # => it is possible that while a document is indexed document is in primary but not yet copied to replica, replica will return that document does not exist, while the primary would return the document successfully.  in that sense read is not consistent but eventual consistent.
 ```
 
-**ElasticSearch GET Read Consistency**
+**Now - Is ElasticSearch SET/GET Read Eventual consistent?**
 
 Elasticsearch read consistency is eventually consistent but it can also be consistent :).  The realtime flag is per shard, so if we have a replicated shard which did not get the data yet, while it may still be realtime we won't get the most recent data, at most we would get the data on it's transaction log.
 
 realtime:true + reaplication: sync ==> read consistent # => because replication true means master waits for the written data to be replicated to all replicas.
 
+How did I get to that conclusion? see the documentation:
 
+ [Distributed Writing section in the documentation](https://www.elastic.co/guide/en/elasticsearch/guide/1.x/distrib-write.html) says this:
+ 
+ > replication
+The default value for replication is sync. This causes the primary shard to wait for successful responses from available replica shards before returning.
+
+in addition it says:
+
+> By the time the client receives a successful response, the document change has been executed on the primary shard and on all replica shards. Your change is safe
+
+Now the documentation also says this:
+
+[documentation on read process on elasticsearch](https://www.elastic.co/guide/en/elasticsearch/guide/1.x/distrib-read.html)
+> It is possible that, while a document is being indexed, the document will already be present on the primary shard but not yet copied to the replica shards. In this case, a replica might report that the document doesn’t exist, while the primary would have returned the document successfully. Once the indexing request has returned success to the user, the document will be available on the primary and all replica shards.
+
+So it's possible for the document to be only on master and not replicas, well that makes sense, if we managed to set the document only on master and the replica didn't get it yet, but in this case the above section also said that the client would not get an ok response.
+
+now there is also the `realtime` flag in the story:
+
+[elasticsearch realtime CRUD](https://www.elastic.co/guide/en/elasticsearch/guide/current/translog.html)
+
+> The translog is also used to provide real-time CRUD. When you try to retrieve, update, or delete a document by ID, it first checks the translog for any recent changes before trying to retrieve the document from the relevant segment. This means that it always has access to the latest known version of the document, in real-time.
+
+To the client which is waiting until data is replicated it is consistent, as the `sync` flag of the consistency is returning a success result to the client only after it was replicated.  Together with the `realtime` flag this ensures that even if the operation is only in the transaction log, it would be returned to the client.  but if i'm client2 which did not do the write, i might be just inside the operation where it finished on master and was not replicated yet to the replicas, in this case it would be eventual consistent.  Ofcourse I encourage you to tell me if you think this is not the case :)
