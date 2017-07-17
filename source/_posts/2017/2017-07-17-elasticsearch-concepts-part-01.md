@@ -61,5 +61,8 @@ read miss # => it is possible that while a document is indexed document is in pr
 
 **ElasticSearch GET Read Consistency**
 
-Elasticsearch read consistency is eventually consistent.  The realtime flag is per shard, so if we have a replicated shard which did not get the data yet, while it may still be realtime we won't get the most recent data, at most we would get the data on it's transaction log.
+Elasticsearch read consistency is eventually consistent but it can also be consistent :).  The realtime flag is per shard, so if we have a replicated shard which did not get the data yet, while it may still be realtime we won't get the most recent data, at most we would get the data on it's transaction log.
+
+realtime:true + reaplication: sync ==> read consistent # => because replication true means master waits for the written data to be replicated to all replicas.
+
 
