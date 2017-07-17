@@ -55,6 +55,11 @@ Create, index, and delete requests are write operations, which must be successfu
 
 ```
 replication # => sync: wait for successull response from replicas.  async: success as soon as primary finished.  avoid sync...
-quorum: By default primary shards requires a quorum (shards majority) to be **available** before attermting write.
+quorum # => By default primary shards requires a quorum (shards majority) to be **available** before attermting write.
+read miss # => it is possible that while a document is indexed document is in primary but not yet copied to replica, replica will return that document does not exist, while the primary would return the document successfully.  in that sense read is not consistent but eventual consistent.
 ```
+
+**ElasticSearch GET Read Consistency**
+
+Elasticsearch read consistency is eventually consistent.  The realtime flag is per shard, so if we have a replicated shard which did not get the data yet, while it may still be realtime we won't get the most recent data, at most we would get the data on it's transaction log.
 
