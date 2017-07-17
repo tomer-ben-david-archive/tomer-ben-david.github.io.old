@@ -28,7 +28,7 @@ Logical namespace that points to one or more shards.  It's like a database in a 
 shard # => documents are stored in shards. single instance of lucene.  a complete search engine in it's own right.
 application -> index -> shard # => applications talk to shards via indexes which are logical namespaces pointers to shards.
 cluster grows # => move shards between nodes.
-primary/replica shard # => document is on a **single** primary shard.
+primary shard # => document is on a **single** primary shard.  data is only on one primary shard.
 replica shard # => in case of hardware failure on primary shard, serve read requests (read/get).
 number of shards # => you can have multiple primary shards for an index.
 who handles what # => Read / Search is handled by either primary or replica, the more copies the higher the throughput.
@@ -37,4 +37,24 @@ concurrency # => if conflict two proesses read 50 and increase to one and store 
 
 **Distributed Document Store**
 
+When you index a document it is stored on a **single primary shard**.
+
+```shard = hash(routing) % number_of_primary_shards```
+
+```
+This explains why the number of primary shards can be set only when an index is created and never changed: if the number of primary shards ever changed in the future, all previous routing values would be invalid and documents would never be found.
+```
+
+```
+coordinating node # => the node got our request, forwards to correct node for read/write.
+```
+
+Create, index, and delete requests are write operations, which must be successfully completed on the **primary shard before ** they can be copied to any associated replica shards.  The client will get OK only if finished successfully on primary shard.
+
+**parameters/configuration**
+
+```
+replication # => sync: wait for successull response from replicas.  async: success as soon as primary finished.  avoid sync...
+quorum: By default primary shards requires a quorum (shards majority) to be **available** before attermting write.
+```
 
