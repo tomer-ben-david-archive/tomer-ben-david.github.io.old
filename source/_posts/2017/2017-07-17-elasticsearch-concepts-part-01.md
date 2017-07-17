@@ -93,4 +93,4 @@ To the client which is waiting until data is replicated it is consistent, as the
 
 **Book**
 
-	![ElasticSearch Essentials](https://images-na.ssl-images-amazon.com/images/I/516PU%2BXcIZL._SX404_BO1,204,203,200_.jpg)
+![ElasticSearch Essentials](https://images-na.ssl-images-amazon.com/images/I/516PU%2BXcIZL._SX404_BO1,204,203,200_.jpg)
