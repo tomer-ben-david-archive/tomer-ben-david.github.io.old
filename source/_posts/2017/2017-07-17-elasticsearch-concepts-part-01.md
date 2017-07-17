@@ -21,14 +21,20 @@ You can talk to any node for searching and indexing including the master.  The *
 
 **Index**
 
-Logical namespace that points to one or more shards.
+Logical namespace that points to one or more shards.  It's like a database in a relational ddatabase.  Index groups together mone or more shards.
 
 ```bash
+1 index -> multi shards # => one index can have one or more multi shards it's like a database.
 shard # => documents are stored in shards. single instance of lucene.  a complete search engine in it's own right.
 application -> index -> shard # => applications talk to shards via indexes which are logical namespaces pointers to shards.
 cluster grows # => move shards between nodes.
 primary/replica shard # => document is on a **single** primary shard.
 replica shard # => in case of hardware failure on primary shard, serve read requests (read/get).
-number of shards # => you can have multiple primary shards for an index (so i think data is split across them).
-
+number of shards # => you can have multiple primary shards for an index.
+who handles what # => Read / Search is handled by either primary or replica, the more copies the higher the throughput.
+concurrency # => if conflict two proesses read 50 and increase to one and store we can end up with 51 and not 52. elasticsearch is using optimistic concurrency control (versioning).
 ```
+
+**Distributed Document Store**
+
+
