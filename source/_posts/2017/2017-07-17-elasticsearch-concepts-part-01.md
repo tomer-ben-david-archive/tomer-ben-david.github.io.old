@@ -90,3 +90,7 @@ now there is also the `realtime` flag in the story:
 > The translog is also used to provide real-time CRUD. When you try to retrieve, update, or delete a document by ID, it first checks the translog for any recent changes before trying to retrieve the document from the relevant segment. This means that it always has access to the latest known version of the document, in real-time.
 
 To the client which is waiting until data is replicated it is consistent, as the `sync` flag of the consistency is returning a success result to the client only after it was replicated.  Together with the `realtime` flag this ensures that even if the operation is only in the transaction log, it would be returned to the client.  but if i'm client2 which did not do the write, i might be just inside the operation where it finished on master and was not replicated yet to the replicas, in this case it would be eventual consistent.  Ofcourse I encourage you to tell me if you think this is not the case :)
+
+**Book**
+
+	![ElasticSearch Essentials](https://images-na.ssl-images-amazon.com/images/I/516PU%2BXcIZL._SX404_BO1,204,203,200_.jpg)
