@@ -74,6 +74,9 @@ def reportProcessFailed(failureProcessUpdate: FailureProcessUpdate) // it's now 
 
 That't better. Now if we have a method to allow the user to report an error we would ask him to provide a `FailureProcessUpdate` and in this case we have no optional `exception`.
 
+**The question**
+
+The questionis ofcourse where do you put an end to this.  You might find yourself with an explosion of case classes for each case (here we just handled the error case).  The answer to that would be that you need to consider your options meaning, if you have an explosion, think about your design maybe those are different domain objects and traits alltogether and you should be combining them..
 
 **Summary**
 
