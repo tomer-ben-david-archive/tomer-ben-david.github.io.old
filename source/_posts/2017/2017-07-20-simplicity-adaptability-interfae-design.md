@@ -78,6 +78,10 @@ That't better. Now if we have a method to allow the user to report an error we w
 
 The questionis ofcourse where do you put an end to this.  You might find yourself with an explosion of case classes for each case (here we just handled the error case).  The answer to that would be that you need to consider your options meaning, if you have an explosion, think about your design maybe those are different domain objects and traits alltogether and you should be combining them..
 
+**The key**
+
+Now I kept this to the end but this should be written at the beginning, I just didn't want to tell you the "secret" right from the start. The key to successfull design it to try the design yourself.  So it's almost a magic bullet, if you think which design should I use, like in our example, just write unit tests as first clients to both designs, and while you write your unit tests, you will see that one simply makes more sense! choose that design!! :)
+
 **Summary**
 
 If you want to get deeper on this topic and other design decisions there is an absolutely amazing book named [Scala Design Patterns](http://amzn.to/2tK3Ikh) this is one of the best books I have found on scala, mainly taking many concepts and specifically discussing how we should approach them.  In addition we are just touching upon this concept but I thought it's important to raise any design decision up, as trivial as it may be.  Sometimes we just takes things for granted, I strongly promote we should always consider the different option and choose the right one consciously.
