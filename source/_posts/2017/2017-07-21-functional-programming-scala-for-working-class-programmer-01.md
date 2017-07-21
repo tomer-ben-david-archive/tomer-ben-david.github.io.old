@@ -1,0 +1,82 @@
+---
+title: Functional Programming in Scala for Working class programmer
+---
+**Introduction**
+
+Who this post is for: Have you ever been to a scala conf and told yourself "I have no idea what this guy talks about?" did you look nervously around and see all people smiling saying "yeah that's obvious and got nervous" . Does it happen regularly? if so this post is for you, otherwise just skip it, you already know fp in scala ;)
+
+This post is optimistic, although I'm going to say functional programming in scala is not easy, our target is to understand it, so bare with me.  Let's face the truth functional programmin in scala is difficult if is difficult if you are just another working class programmer coming mainly from java background. If you came from haskell background then hell it's easy.  If you come from heavy math background then hell yes it's easy.  But if you are a standard working class java backend engineer with previous OOP design background then hell yeah it's difficult.
+
+**Terminology**
+
+Let's start with the terminology, monad, semigroup, functor, typeclass, higher order functions, higher order types, partially applied functions, partial functions, are you still with us? If you already know the above concepts then this post is not for you but if you don't then heck yeah, but I have no chance of going through them in a single post, so stay tuned for the next post.
+
+**Example, is it simple**
+
+Question, is the below code easy?
+
+```scala
+  object Request {
+    def pure[A](a: A): Free[Requestable, A] =
+      Free.liftFC(Pure(a) : Request[A])
+
+    def fetch[A](service: Service[A]): Free[Requestable, A] =
+      Free.liftFC(Fetch(service) : Request[A])
+  }
+```
+
+Not for me, what are all those "Free", "lift", "pure", what are the generics doing there? I can find thousands of examples like this, just search google for the cool FP terminology, this is our target to decompose this structure, to clear out the fog. 
+
+**Haskell**
+
+I think if you want to learn scala you first need to learn haskell or something else and only then get to scala.   It looks like its very difficult to first get to these concepts by scala.  And yes when I need to learn a concept in scala guess what I first learn it in haskell and only then get to scala.  if haskell would only have all java libraries and run on jvm...
+
+**FP is very important**
+
+But FP is very important, concurrency, better code, big data, parallel computing, better testing.  I mean FP is the thing for a programmer who want's to write clean code with a clean pure core and all the IO surrounding it, it's the dream of clean code, so we are going to make that effort.
+
+ **The good thing about FB**
+ 
+ The good thing about FP is what makes all the problem and noise.  With FP you use pure functions, this I assume we all know what it means.  The problem is that real world applications are not pure, they have side effects.  And this is where much of the complexity comes into play, this is the challenge, in addition you don't mutate things, so you start using recursion :)
+ 
+**The benefits of imperative programmers**
+
+Before i'm getting assassinated by functional programmers I want to tell you this, there are good things about imperative programming.  If you have some basic sanity of clean code practices and you write well organized and clean code with imperative programming, (small functions, mutation where needed but not always), you use for loops instead of map/flatMap twin brothers.  Then you know what? you use the java util concurrency building blocks and non blocking io also with multithreading, you can write excellent applications which have high performance utilization, I know this from first hand, I wrote many such apps some with very high scale demand, and i have to say that for other programmers without majour knowledge in FP those imperative programs were much easier to understand than their FP mirror brothers and sisters programs.  So imperative is also good.  But we are here to get to FP not to imperative.  And this is the route we are going to take.
+
+**Declarative vs Imperative**
+
+So the first step is to understand what declarative code means.
+
+I like jenkov article "The illusion of declarative code".  He presents the below imperative code:
+
+```javascript
+function capitalWithInterest(capital, interest, periods) {
+    var result = capital;
+    for(var i = 0; i < periods; i++) {
+        result = result * (1 + interest);
+    }
+    return result;
+}
+```
+Now he asks what is the declarative version of that code? and he answers:
+
+```javascript
+var result = capitalWithInterest(100, 0.1, 5);
+``` 
+
+Here - it's declarative we didn't say imperatively how we want to calculate capital with interest we have just **told** the computer that we want it to calculate for us the capital with interest.
+
+**Declarative code with scala**
+
+So in scala the most common example of declarative code is by using "map" and friends instead of for loops, for loops are the explicit imperative way to tell the computer how to do the loop and map and friends are declarative you just tell the computer go over the items on this list and subtract 2 from each
+
+```scala
+val listOfNumbers = List(1,2,3)
+listOfNumbers.map(_ - 2).foreach(println) 
+```
+
+So in this case instead of imperatively going through the list and printing each we tell odersky, hey please for each item in the list (map) please subtract two and for each item print it (after you subtracted 2 from it) 
+ 
+ 
+ 
+![Scala Design Patterns](https://images-na.ssl-images-amazon.com/images/I/51yfYdrJjYL._AC_US436_FMwebp_QL65_.jpg)
