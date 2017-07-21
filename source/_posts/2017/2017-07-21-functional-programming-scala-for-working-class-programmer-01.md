@@ -3,7 +3,7 @@ title: Functional Programming in Scala for Working class programmer
 ---
 **Introduction**
 
-Who this post is for: Have you ever been to a scala conf and told yourself "I have no idea what this guy talks about?" did you look nervously around and see all people smiling saying "yeah that's obvious and got nervous" . Does it happen regularly? if so this post is for you, otherwise just skip it, you already know fp in scala ;)
+Have you ever been to a scala conf and told yourself "I have no idea what this guy talks about?" did you look nervously around and see all people smiling saying "yeah that's obvious " only to get you even more nervous? . If so this post is for you, otherwise just skip it, you already know fp in scala ;)
 
 This post is optimistic, although I'm going to say functional programming in scala is not easy, our target is to understand it, so bare with me.  Let's face the truth functional programmin in scala is difficult if is difficult if you are just another working class programmer coming mainly from java background. If you came from haskell background then hell it's easy.  If you come from heavy math background then hell yes it's easy.  But if you are a standard working class java backend engineer with previous OOP design background then hell yeah it's difficult.
 
