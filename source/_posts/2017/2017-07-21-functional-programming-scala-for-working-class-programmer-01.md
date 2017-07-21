@@ -75,8 +75,14 @@ val listOfNumbers = List(1,2,3)
 listOfNumbers.map(_ - 2).foreach(println) 
 ```
 
-So in this case instead of imperatively going through the list and printing each we tell odersky, hey please for each item in the list (map) please subtract two and for each item print it (after you subtracted 2 from it) 
+So in this case instead of imperatively going through the list and printing each we tell odersky, hey please for each item in the list (map) please subtract two and for each item print it (after you subtracted 2 from it)  
  
+ **Functional Programming and Immutability**
  
+ Because in functional programming we would rather have pure functions, then, there is a consequence to that the consequence, is that we use immutability more nad more, as much as we can in favour of mutable data structures.  In the great book [Scala Design Patterns by John Hunt](http://amzn.to/2tK3Ikh), the author says, quote: "Immutability is an important principle in Scala and it should be preferred. The builder design pattern with case classes uses immutable fields and this is considered a good practice.".  And yes case classes which inherit from sealed traits are not only a great way to model your data, they help extensively with using immutable data structures instead of mutable.
+ 
+ **Summary**
+ 
+ We have just touched the tip of the iceberg here, but don't worry before global warming takes it's place and metls the iceberg we are going to hit upon all the concepts you wanted to know about scala but had nightmares about free monad, managing state, functors and friends.
  
 ![Scala Design Patterns](https://images-na.ssl-images-amazon.com/images/I/51yfYdrJjYL._AC_US436_FMwebp_QL65_.jpg)
