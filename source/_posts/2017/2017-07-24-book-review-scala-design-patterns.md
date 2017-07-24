@@ -16,16 +16,15 @@ I mean you can read this book in two ways.  First way as a standard scala design
 
 So what does the book cover, or what did I learn from it? many things I found hard to grasp by other books! here is the list:
 
-1. Mixin composition
-1. Multiple inheritance and scala
-1. Linearization
-1. Testing traits
-1. Traits vs classes
-1. Implicits
-1. Algebric data types and class hierarchies
-1. Abstract types
-1. Polymorphiosm and scala
-1. Self types and when to use
+1. Mixin composition - Will guide you on how to compose functionality
+1. Multiple inheritance and scala - Will show you how scala solves or get's around the multiple inheritance problem
+1. Linearization - The linearization process is the process by which scala get's around the multiple inheritance problem, here is a clear explanation of it!
+1. Testing traits - Best practices for testing traits the scala way
+1. Traits vs classes - When do you prefer classes to traits and vice versa how to properly combine them
+1. Implicits - Advanced usage of implicits - again clear and great explanations
+1. Algebric data types and class hierarchies - An excellent explanation of ADT
+1. Polymorphiosm and scala - The way scala views polymorophism pitfalls and how to utilize it
+1. Self types and when to use - What is a self type how to use, again excellent description with real world examples
 1. On modules and objects
 1. Stackable traits
 1. Typeclasses
