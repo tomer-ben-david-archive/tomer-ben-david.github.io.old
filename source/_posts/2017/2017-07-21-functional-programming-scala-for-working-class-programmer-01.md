@@ -9,7 +9,7 @@ This post is optimistic, although I'm going to say functional programming in sca
 
 **Scala and Design Patterns**
 
-An interesting point of view on scala, is looking at it's set of features as design patterns.  This is exactly what Ivan Nikolov says in [Scala Design Patterns](http://devatrest.blogspot.com/2017/07/scala-design-patterns-book-review.html) .  He actually shows how the hybrid nature of the scala programming language also makes some of the traditional object-oriented design patterns obsolete, or possible, using other cleaner techniques in his great book.  While I fully agree with him, I recognize that it's going to take lot of time going over all the standard design patterns and not only the standard ones but also many of th enon written patterns, best practices, and seeing how the match in the scala programming language.
+An interesting point of view on scala, is looking at it's set of features as design patterns.  This is exactly what Ivan Nikolov says in [Scala Design Patterns](http://devatrest.blogspot.com/2017/07/scala-design-patterns-book-review.html) . <a href="http://amzn.to/2tK3Ikh" target="_blank"><img src="https://goo.gl/RR3eDs" alt="Scala Design Patterns" width="200"/></a> He actually shows how the hybrid nature of the scala programming language also makes some of the traditional object-oriented design patterns obsolete, or possible, using other cleaner techniques in his great book.  While I fully agree with him, I recognize that it's going to take lot of time going over all the standard design patterns and not only the standard ones but also many of th enon written patterns, best practices, and seeing how the match in the scala programming language.
 
 **Terminology**
 
