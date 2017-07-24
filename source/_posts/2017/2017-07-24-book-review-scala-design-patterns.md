@@ -5,7 +5,7 @@ title: Scala Design Patterns Book Review
 
 There are many books about scala, some are both advanced and incomprehensible to most, some are not only simple and introductory, but there is currently only one book which managed to touch the sweet spot of a balance between presenting advanced topics and being comprehensible.  This book is **[Scala Design Patterns by John Hunt](http://amzn.to/2tK3Ikh)**.
 
-![Scala Design Patterns](https://photos.google.com/share/AF1QipOMAc4uiGNEgk-kaKCzKL83_2R-WmglKgzhjcwmXoKC64FiGPN_k49laXz4b6gDwg/photo/AF1QipMAr3ZcdTShimE5XmrFPW7pbcqMD3NsvOWyWtSo?key=OV9xNlhwQkdBcUVDalVFYWdYQjg1dGlDWWxIMlNR)
+![Scala Design Patterns](https://photos.app.goo.gl/kZ9kqZsgqJQdsMJ42)
  
 **I don't read it because of the design patterns!**
 
