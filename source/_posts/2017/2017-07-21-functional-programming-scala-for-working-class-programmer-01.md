@@ -7,6 +7,10 @@ Have you ever been to a scala conf and told yourself "I have no idea what this g
 
 This post is optimistic, although I'm going to say functional programming in scala is not easy, our target is to understand it, so bare with me.  Let's face the truth functional programmin in scala is difficult if is difficult if you are just another working class programmer coming mainly from java background. If you came from haskell background then hell it's easy.  If you come from heavy math background then hell yes it's easy.  But if you are a standard working class java backend engineer with previous OOP design background then hell yeah it's difficult.
 
+**Scala and Design Patterns**
+
+An interesting point of view on scala, is looking at it's set of features as design patterns.  This is exactly what Ivan Nikolov says in [Scala Design Patterns](http://devatrest.blogspot.com/2017/07/scala-design-patterns-book-review.html) .  He actually shows how the hybrid nature of the scala programming language also makes some of the traditional object-oriented design patterns obsolete, or possible, using other cleaner techniques in his great book.  While I fully agree with him, I recognize that it's going to take lot of time going over all the standard design patterns and not only the standard ones but also many of th enon written patterns, best practices, and seeing how the match in the scala programming language.
+
 **Terminology**
 
 Let's start with the terminology, monad, semigroup, functor, typeclass, higher order functions, higher order types, partially applied functions, partial functions, are you still with us? If you already know the above concepts then this post is not for you but if you don't then heck yeah, but I have no chance of going through them in a single post, so stay tuned for the next post.
