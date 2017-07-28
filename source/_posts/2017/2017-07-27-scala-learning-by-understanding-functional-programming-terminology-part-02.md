@@ -3,11 +3,11 @@ title: Scala, learning by understanding Functional Programming Terminology part 
 ---
 **Introduction**
 
-`lambda`, who named `lambda` lambda? why did they call it `lambda`, is it simple or compelx?
+`lambda`, who named lambda lambda? why did they call it lambda, is it simple or complex?
 
-`map`, what is it? who named `map` map? why did they call it `map`, is it simple or complex?
+`map`, what is it? who named map map? why did they call it map, is it simple or complex?
 
-`functor`, who named `functor` functor? what is it? why did they call it `functor` is it simple or complex?
+`functor`, who named functor functor? what is it? why did they call it functor is it simple or complex?
 
 In part 1 we have covered background on `FP`, why we should use, why not, where it's strength is and where it's weaknesses are.  In this part (2) we are going to move on and discuss more `FP` terminology.
 
@@ -39,7 +39,11 @@ So to sum up
 
 If you tell a non `FP` developer, "hey I just wrote a function and I named it `map` what do you think it's doing?".  He might answer, "maybe something with google maps?" . Well actually you could name map `traverse` or something like that the thing is that if `FP` is closely related to functional programming, and functional programming is closely related to math then we had better stick with the mathematical terms as awuful and non descriptive as they are.  
 
-In our case `map` is actually a good name, it's mapping from one item on our source structure to another item in our destination structure.  you cannot really deduce from the name only that the destination structure has the same shape as the source structure, but if you talk to mathematician he can deduce it, and we love mathematician's deductions, we are wannabe `FP` after all aren't we?
+In our case `map` is actually a good name, it's mapping from one item on our source structure to another item in our destination structure.  you cannot really deduce from the name only that the destination structure has the same shape as the source structure, but if you talk to mathematician he can deduce it, and we love mathematician's deductions, we are wannabe `FP` after all aren't we? The great book **[Scala Design Patterns By Ivan Nikolov](https://devatrest.blogspot.com/2017/07/scala-design-patterns-book-review.html)** says:
+
+>Following common conventions would make things much simpler
+
+and this is exactly what the `map` name is all about.
 
 Do you write loops? you do this all day right? Do you write loops that convert each item in a list into another? well map is exactly that, nothing special here, you do this all day.
 
@@ -72,6 +76,22 @@ map :: (a -> b) -> [a] -> [b]
 ```
 
 so we have an input function from `a` to `b` and we transform list `[a]` to list `[b]` now you see why haskell is more compact and much easy to lern `FP` concepts, I told you.  But once you get the hang of scala it's rather good also.
+
+Now in almost all languages you can see the same thing, transforming from one kind of element to another and the shape stays the same for you.. for exmaple in ruby
+
+```ruby
+[1,2,3,4].map {|i| i + 1}
+# => [2, 3, 4, 5]
+```
+
+in closure:
+
+```closure
+(map #(+ % 1) [1 2 3 4])
+;; => (2 3 4 5)
+```
+
+So we just take each element apply the map higher order function which takes another function, and it does it's mapping over the list and returns us a new list or the same object of the same type.
 
 **functor**
 
