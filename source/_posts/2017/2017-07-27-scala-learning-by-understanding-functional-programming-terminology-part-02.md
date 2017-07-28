@@ -9,7 +9,7 @@ title: Scala, learning by understanding Functional Programming Terminology part 
 
 `functor`, why name functor a functor? what is it? why did they call it functor is it simple or complex?
 
-In part 1 we have covered background on `FP`, why we should use, why not, where it's strength is and where it's weaknesses are.  In this part (2) we are going to move on and discuss more `FP` terminology.
+In [Part 1](https://devatrest.blogspot.com/2017/07/introduction-have-you-ever-been-to.html) we have covered background on `FP`, why we should use, why not, where it's strength is and where it's weaknesses are.  In this part (2) we are going to move on and discuss more `FP` terminology.
 
 **Lambda**
 
