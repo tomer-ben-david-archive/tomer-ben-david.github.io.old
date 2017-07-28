@@ -5,9 +5,9 @@ title: Scala, learning by understanding Functional Programming Terminology part 
 
 `lambda`, who named lambda lambda? why did they call it lambda, is it simple or complex?
 
-`map`, what is it? who named map map? why did they call it map, is it simple or complex?
+`map`, what is it? why name map - map? why did they call it map, is it simple or complex?
 
-`functor`, who named functor functor? what is it? why did they call it functor is it simple or complex?
+`functor`, why name functor a functor? what is it? why did they call it functor is it simple or complex?
 
 In part 1 we have covered background on `FP`, why we should use, why not, where it's strength is and where it's weaknesses are.  In this part (2) we are going to move on and discuss more `FP` terminology.
 
@@ -25,15 +25,15 @@ So what can we learn from this?
 1. `lambda calculus` -> give me a computation and i'll represent it in lambda calculus as anonymous functions
 1. `lambda` -> a greek letter alonzo church have chosen to represent those functions or binding of variables to function.
 
-In addition.  According to []stackoverflow answer with 812 upvotes](https://stackoverflow.com/questions/16501/what-is-a-lambda-function):
+In addition.  According to [stackoverflow answer with 812 upvotes](https://stackoverflow.com/questions/16501/what-is-a-lambda-function):
 
 > Lambda comes from the Lambda Calculus and refers to anonymous functions in programming.  Why is this cool? It allows you to write quick throw away functions without naming them. It also provides a nice way to write closures. With that power you can do things like this.
 
 So to sum up
 
-`lambda` -> anonymous function.
-`lambda calculus` -> computations expressed as math functions.
-`lambda` -> alonzo church represents a function with this greek letter. 
+1. `lambda` -> anonymous function.
+1. `lambda calculus` -> computations expressed as math functions.
+1. `lambda` -> alonzo church represents a function with this greek letter. 
 
 **map**
 
@@ -92,6 +92,11 @@ in closure:
 ```
 
 So we just take each element apply the map higher order function which takes another function, and it does it's mapping over the list and returns us a new list or the same object of the same type.
+
+**Conclusion**
+
+I think we have covered the basics terms here, `map`, `lambda`, which gives us the basis for functional programming, we have seen like our first higher order function map which takes another function, which is pretty awesome, in the next post we would continue to functor and friends.
+
 
 **functor**
 
