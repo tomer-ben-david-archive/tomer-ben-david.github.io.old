@@ -21,6 +21,12 @@ Very unhelpful! we already said our posts is not directed to math oriented peopl
 
 So we have `lambda` we already said what it is: \for our sake is an anonymous function, we have map, which just tells us to go over each item and apply a function, let's get to `functor`.
 
+If you check out the book "Programming In Scala" which is supposed to be the "scala bible", here is what it says about `functor`
+
+>
+
+That is not a mistake it says nothing about functor!  Yes, it's true this book is not about `FP` it's just about scala some would say about scala's syntax, but personally I think that without explaining the basic terminology underlying one's computer language it would be much more difficult to understand it.  Therefore we move on to other resources to understand what functor means. 
+
 according to a great [quora answer](https://www.quora.com/Functional-Programming-What-is-a-functor) about what a `functor` is:
 
 > Any type f with a function like this (map) is a functor, with one additional restriction: the map function has to preserve the "structure" of the value it's mapping over
@@ -43,6 +49,8 @@ class Functor f where
 ```
 
 so a Functor is just a class (type class but we didn't talk about it yet), so it's just a class with a single function! `fmap`.  This goes along extremely well with the fact that we said that functor is a type which has the function `map`.  But why `fmap` in our case and not `map` this is because we are referring here to the general case.  In our case here it's the definition of what a functor is, and it is any class which defines a function which takes a higher order function from `(a -> b)` from any a to any b. now the functor value `f a` when applied with the function `(a -> b)` evaluates to the functor value `f b` that's it.  If our `f` is an array it would simply be:
+
+Now you may ask, why do we have not only `f a` but also `f b`.  The reason is that the output or the *evaluation* of the map function as FP people like to call it, is also a functor, we talked about it when we explained the map function, the output or the evaluation is boxes in the same shape as the original data type.  And as the original data type was a functor (it had a map function), that means that the output data type is also a functor.  hurrah!
 
 ```haskell
 map :: (a -> b) -> [a] -> [b]
@@ -70,17 +78,122 @@ if a functor can be thought of as a homomorphism and homomorphism is a structure
 
 Now that we have covered `functor` let's see what functors are in scala:
 
+**Practice**
+
+As a good practice we are going to create our own functor.  You should already know be able to tell taht Option, List, are all functors 
+
 for example if we have the type `MyOption`
+
+Let's start by declaring MyOption trait:
+
+```scala
+trait MyOption[A] // MyOption would be an option on any type we want it to be for now it's just A ...
+```
+
+Now we said we want MyOption to be a functor so let's add map to it:
 
 ```scala
 trait MyOption[A] {
-    def map[B](f: A => B): Option[B] = if (isEmpty) None else Some(f(this.get)
-}
-
-trait MySome[A] {
-  def isEmpty = false
+  def map[B](f: A => B): MyOption[B] // MyOption will have an inner type A, map would map from A to MyOption[B] same container it's map.
 }
 ```
+
+Let's implement the body of map, it should apply the function f to every parameter
+
+```scala
+trait MyOption[A] {
+  def map[B](f: A => B): MyOption[B] = if (isBoxEmpty) MyNone else MySome(f(this.get)) // Cool but it does not compile yet
+  // What we are saying here is that if we are already MyNone then we simply return MyNone nothing to apply function on
+  // but if we do have something we first apply the function f and then BOX it back into MySome
+}
+```
+
+Now MyOption can be MyNone or MySome let's start by implementing MyNone, MyNone is a single value so it can just be an object, also it's isBoxEmpty is simply true
+
+We first need to fix an issue with MyOption as it's define as MyOption[A] if we want to return an object MyNone it would need to have a type parameter which type parameter should we provide to MyNone[?] as it turns we want to return the type parameter which would match any type we provide as A and it's Nothing.
+
+Therefore our updated implementation of the trait MyOption is:
+
+```scala
+trait MyOption[+A] { // we hae + otherwise how would you be able to return the subtype MyOption[Nothing] it's nto MyNone[A]! + allows for children!
+  def isBoxEmpty: Boolean
+  def map[B](f: A => B): MyOption[B] = if (isBoxEmpty) MyNone else MySome(f(this.get)) // Cool but it does not compile yet
+  // What we are saying here is that if we are already MyNone then we simply return MyNone nothing to apply function on
+  // but if we do have something we first apply the function f and then BOX it back into MySome
+  def get: A
+}
+```
+
+And now we can move on to define MyNone:
+
+```scala
+object MyNone extends MyOption[Nothing] { // it's nothing so it matches any type! (Nothing matches any type!)
+  def isBoxEmpty = true
+  def get = throw new NoSuchElementException("Hey i'm MyNone i have nothing!")
+}
+```
+
+And accordingly MySome would be:
+
+```scala
+case class MySome[+A](x: A) extends MyOption[A] { // We initialize the value with MySome constructor that's the x: A
+  def isBoxEmpty: Boolean = false // It's never empty we have MyNone for the empty case
+  def get: A = x
+}
+```
+
+Now let's write a simple app that uses it:
+
+```scala
+object MyApp extends App {
+  println(MySome("dude ive just been Somed!"))
+  println(MySome("dude ive just been Somed! - Here you are out of the box!").get)
+  println("What would get printed for nothing? " + MyNone.map(_ => println))
+  println("Lets do some mapping on some something: " + MySome("something..").map(_ * 4))
+}
+```
+
+```text
+MySome(dude ive just been Somed!)
+dude ive just been Somed! - Here you are out of the box!
+What would get printed for nothing? com.tms.diy.executiontracker.MyNone$@eafc191
+Lets do some mapping on some something: MySome(something..something..something..something..)
+```
+
+cool so we have MyNone and MySome! :)
+
+```scala
+trait MyOption[+A] { // we hae + otherwise how would you be able to return the subtype MyOption[Nothing] it's nto MyNone[A]! + allows for children!
+  def isBoxEmpty: Boolean
+  def map[B](f: A => B): MyOption[B] = if (isBoxEmpty) MyNone else MySome(f(this.get)) // Cool but it does not compile yet
+  // What we are saying here is that if we are already MyNone then we simply return MyNone nothing to apply function on
+  // but if we do have something we first apply the function f and then BOX it back into MySome
+  def get: A
+}
+
+object MyNone extends MyOption[Nothing] { // it's nothing so it matches any type! (Nothing matches any type!)
+  def isBoxEmpty = true
+  def get = throw new NoSuchElementException("Hey i'm MyNone i have nothing!")
+}
+
+case class MySome[+A](x: A) extends MyOption[A] { // We initialize the value with MySome constructor that's the x: A
+  def isBoxEmpty: Boolean = false // It's never empty we have MyNone for the empty case
+  def get: A = x
+}
+
+object MyApp extends App {
+  println(MySome("dude ive just been Somed!"))
+  println(MySome("dude ive just been Somed! - Here you are out of the box!").get)
+  println("What would get printed for nothing? " + MyNone.map(_ => println))
+  println("Lets do some mapping on some something: " + MySome("something..").map(_ * 4))
+}
+```
+
+Now for the sake of completeness let's put out the whole code as one bulk:
+
+
+
+Now let's move on to define MySome
 
 **FP Impurity**
 
